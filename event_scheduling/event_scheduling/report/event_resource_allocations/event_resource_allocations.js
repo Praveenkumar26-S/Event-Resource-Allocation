@@ -24,8 +24,8 @@ frappe.query_reports["Event Resource Allocations"] = {
 		{
 			"fieldname": "resource_type",
 			"label": ("Resource Type"),
-			"fieldtype": "Link",
-			"options": "Resource Type",
+			"fieldtype": "Select",
+			"options": " \nRoom\nInstructor\nEquipment"
 		},
 		{
 			"fieldname": "resource_name",

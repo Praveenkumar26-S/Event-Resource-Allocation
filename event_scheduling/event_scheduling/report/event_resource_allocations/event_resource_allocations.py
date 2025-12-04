@@ -19,10 +19,10 @@ def get_columns():
         {"label": "Utilised Events", "fieldname": "utilised", "fieldtype": "Int", "width": 150},
     ]
 
-def get_data(filters):
-    today = now_datetime()
 
-    summary = {}
+def get_data(filters):
+    data = []
+    today = now_datetime()
 
     parent_filters = {}
     if filters.get("event"):
@@ -31,52 +31,48 @@ def get_data(filters):
     parent_docs = frappe.get_all(
         "Event Resource Allocation",
         filters=parent_filters,
-        fields=["name", "events"]
+        fields=["name", "events", "resource_name", "resource_type"]
     )
 
-    for parent in parent_docs:
+    summary = {}
 
-        event_doc = frappe.get_doc("Events", parent.events)
+    for alloc in parent_docs:
+
+        event_doc = frappe.get_doc("Events", alloc.events)
 
         if filters.get("from_date") and event_doc.start_time.date() < getdate(filters.get("from_date")):
             continue
         if filters.get("to_date") and event_doc.end_time.date() > getdate(filters.get("to_date")):
             continue
 
-        alloc_doc = frappe.get_doc("Event Resource Allocation", parent.name)
+        if filters.get("resource_type") and alloc.resource_type != filters.get("resource_type"):
+            continue
+        if filters.get("resource_name") and alloc.resource_name != filters.get("resource_name"):
+            continue
 
-        for row in alloc_doc.allocations:
+        start = get_datetime(event_doc.start_time)
+        end = get_datetime(event_doc.end_time)
+        hours_used = (end - start).total_seconds() / 3600
+        status = "Upcoming" if start > today else "Utilised"
 
-            if filters.get("resource_type") and row.resource_type != filters.get("resource_type"):
-                continue
-            if filters.get("resource_name") and row.resource_name != filters.get("resource_name"):
-                continue
+        key = alloc.resource_name
 
-            start = get_datetime(event_doc.start_time)
-            end = get_datetime(event_doc.end_time)
-            hours_used = (end - start).total_seconds() / 3600
+        if key not in summary:
+            summary[key] = {
+                "resource_name": alloc.resource_name,
+                "resource_type": alloc.resource_type,
+                "total_hours": 0,
+                "total_events": 0,
+                "upcoming": 0,
+                "utilised": 0
+            }
 
-            status = "Upcoming" if start > today else "Utilised"
-
-            key = row.resource_name
-
-            if key not in summary:
-                summary[key] = {
-                    "resource_name": row.resource_name,
-                    "resource_type": row.resource_type,
-                    "total_hours": 0,
-                    "total_events": 0,
-                    "upcoming": 0,
-                    "utilised": 0
-                }
-
-            summary[key]["total_hours"] += hours_used
-            summary[key]["total_events"] += 1
-
-            if status == "Upcoming":
-                summary[key]["upcoming"] += 1
-            else:
-                summary[key]["utilised"] += 1
+        summary[key]["total_hours"] += hours_used
+        summary[key]["total_events"] += 1
+        if status == "Upcoming":
+            summary[key]["upcoming"] += 1
+        else:
+            summary[key]["utilised"] += 1
 
     final = []
     for key, s in summary.items():
