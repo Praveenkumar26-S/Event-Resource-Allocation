@@ -1,0 +1,14 @@
+# Copyright (c) 2025, Praveen and contributors
+# For license information, please see license.txt
+
+import frappe
+from frappe.model.document import Document
+
+
+class Events(Document):
+	def validate(self):
+		self.check_time()
+
+	def check_time(self):
+		if self.start_time >= self.end_time:
+			frappe.throw("Start time must be less than End time.")

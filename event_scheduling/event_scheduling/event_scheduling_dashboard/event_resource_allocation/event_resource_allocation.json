@@ -1,0 +1,25 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Events",
+   "width": "Half"
+  },
+  {
+   "chart": "Resources",
+   "width": "Half"
+  }
+ ],
+ "creation": "2025-12-02 17:26:06.298325",
+ "dashboard_name": "Event Resource Allocation",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2025-12-03 11:07:18.011285",
+ "modified_by": "Administrator",
+ "module": "event_scheduling",
+ "name": "Event Resource Allocation",
+ "owner": "Administrator"
+}

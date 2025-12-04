@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-03 11:24:20.598511",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "events",
+  "title",
+  "column_break_dgbo",
+  "start_time",
+  "end_time",
+  "section_break_ixub",
+  "allocations"
+ ],
+ "fields": [
+  {
+   "fieldname": "events",
+   "fieldtype": "Link",
+   "label": "Events",
+   "options": "Events"
+  },
+  {
+   "fetch_from": "events.title",
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "column_break_dgbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "events.start_time",
+   "fieldname": "start_time",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fetch_from": "events.end_time",
+   "fieldname": "end_time",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "section_break_ixub",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "allocations",
+   "fieldtype": "Table",
+   "label": "Allocations",
+   "options": "Allocation"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-12-03 11:27:53.136407",
+ "modified_by": "Administrator",
+ "module": "event_scheduling",
+ "name": "Allocation Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
