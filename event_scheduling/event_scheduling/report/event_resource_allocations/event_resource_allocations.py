@@ -21,7 +21,7 @@ def get_columns():
 
 
 def get_data(filters):
-    data = []
+
     today = now_datetime()
 
     parent_filters = {}
@@ -30,14 +30,14 @@ def get_data(filters):
 
     parent_docs = frappe.get_all(
         "Event Resource Allocation",
-        filters=parent_filters,
+        filters=parent_filters, 
         fields=["name", "events", "resource_name", "resource_type"]
     )
 
     summary = {}
 
     for alloc in parent_docs:
-
+    
         event_doc = frappe.get_doc("Events", alloc.events)
 
         if filters.get("from_date") and event_doc.start_time.date() < getdate(filters.get("from_date")):
@@ -54,6 +54,7 @@ def get_data(filters):
         end = get_datetime(event_doc.end_time)
         hours_used = (end - start).total_seconds() / 3600
         status = "Upcoming" if start > today else "Utilised"
+        print("status",status)
 
         key = alloc.resource_name
 

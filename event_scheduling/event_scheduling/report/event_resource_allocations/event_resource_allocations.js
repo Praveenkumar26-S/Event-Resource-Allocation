@@ -32,6 +32,6 @@ frappe.query_reports["Event Resource Allocations"] = {
 			"label": ("Resource Name"),
 			"fieldtype": "Link",
 			"options": "Resources"
-		},
+		}
 	]
 };

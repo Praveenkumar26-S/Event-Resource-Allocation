@@ -16,6 +16,7 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
+   "in_global_search": 1,
    "in_list_view": 1,
    "label": "Title",
    "reqd": 1
@@ -49,7 +50,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-03 13:11:49.849150",
+ "modified": "2025-12-05 11:18:59.908080",
  "modified_by": "Administrator",
  "module": "event_scheduling",
  "name": "Events",
@@ -72,6 +73,7 @@
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
  "search_fields": "title",
+ "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
